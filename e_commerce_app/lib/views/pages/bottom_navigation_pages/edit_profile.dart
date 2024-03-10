@@ -51,7 +51,7 @@ class _EditProfileState extends State<EditProfile> {
           },
           builder: (context, state) {
             if (state is AuthLoadingState) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else {
@@ -105,12 +105,6 @@ class _EditProfileState extends State<EditProfile> {
                         context
                             .read<AuthBloc>()
                             .add(UploadProfileEvent(image: _image!));
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const ProfilePage(),
-                        //   ),
-                        // );
                       },
                     ),
                   ],

@@ -2,8 +2,11 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/auth/models/user_model.dart';
+import 'package:e_commerce_app/main.dart';
+import 'package:e_commerce_app/views/pages/login_and_register/login_or_register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AuthRepo {
@@ -16,18 +19,46 @@ class AuthRepo {
   late MyUser myUser;
   late String url;
 
-  // Function to get the current logged-in user
   User? getCurrentUser() {
     return _auth.currentUser;
   }
 
-  Future<MyUser?> signIn({required String email, required String password}) async {
+
+  Future<String> getUserRole({required User user}) async{
+  try {
+    final userQuery = await _cloud
+        .collection('users')
+        .where('uid', isEqualTo: user.uid)
+        .get();
+
+    if (userQuery.docs.isEmpty) {
+      return 'User not found'; 
+    }
+
+    final userData = userQuery.docs[0].data();
+    if (!userData.containsKey('roll')) {
+      return 'Role not found'; 
+    }
+
+    return userData['roll'];
+  } catch (e) {
+    print(e);
+    throw Exception('Failed to retrieve user role');
+  }
+}
+
+
+  Future<MyUser?> signIn(
+      {required String email, required String password}) async {
     try {
       UserCredential usercred = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      MyUser myUser = MyUser(uid: usercred.user!.uid, name: usercred.user!.displayName ?? '', email: email);
+      MyUser myUser = MyUser(
+          uid: usercred.user!.uid,
+          name: usercred.user!.displayName ?? '',
+          email: email);
       return myUser;
     } catch (e) {
       print('Error during sign-in: $e');
@@ -35,17 +66,23 @@ class AuthRepo {
     }
   }
 
-  Future<void> signOut()async{
+  Future<void> signOut() async {
     try {
       await _auth.signOut();
+      Navigator.pushReplacement(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (context) => const LoginOrRegisterPage()),
+    );
     } catch (e) {
       print('Error during sign-out: $e');
     }
-    
   }
 
-  Future<MyUser?> signUp({required String email,required String password,required String name})async{
-    try{
+  Future<MyUser?> signUp(
+      {required String email,
+      required String password,
+      required String name}) async {
+    try {
       final userCred = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -54,19 +91,21 @@ class AuthRepo {
         uid: userCred.user!.uid,
         email: email,
         name: name,
-        imageUrl: 'https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png',
+        imageUrl:
+            'https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png',
       );
       await _auth.currentUser!.updateDisplayName(name);
-      await _auth.currentUser!.updatePhotoURL('https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png');
+      await _auth.currentUser!.updatePhotoURL(
+          'https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png');
       await _cloud.collection('users').add(myUser.toMap());
       return myUser;
-    }catch(e){
+    } catch (e) {
       print('Error during sign-up: $e');
       return null;
     }
   }
 
-  Future<void> forgotPassword({required String email})async {
+  Future<void> forgotPassword({required String email}) async {
     try {
       await _auth.sendPasswordResetEmail(
         email: email,
@@ -76,10 +115,16 @@ class AuthRepo {
     }
   }
 
-  Future<void> uploadImage({required MyUser user, File? image})async {
+  Future<void> uploadImage({required MyUser user, File? image}) async {
     try {
-      final userQuery = await _cloud.collection('users').where('uid', isEqualTo: user.uid).get();
-      final refDoc = await _storage.ref().child('pic ${_auth.currentUser!.uid}').putFile(image!);
+      final userQuery = await _cloud
+          .collection('users')
+          .where('uid', isEqualTo: user.uid)
+          .get();
+      final refDoc = await _storage
+          .ref()
+          .child('pic ${_auth.currentUser!.uid}')
+          .putFile(image!);
       url = await refDoc.ref.getDownloadURL();
       await _auth.currentUser!.updatePhotoURL(url);
       await _cloud.collection('users').doc(userQuery.docs[0].id).update({
@@ -89,5 +134,4 @@ class AuthRepo {
       print('Error during upload image: $e');
     }
   }
-
 }

@@ -1,5 +1,4 @@
 import 'package:e_commerce_app/auth/bloc/auth_bloc.dart';
-import 'package:e_commerce_app/auth/models/user_model.dart';
 import 'package:e_commerce_app/auth/repositories/auth_repo.dart';
 import 'package:e_commerce_app/views/shared/fonts/google_font.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,8 +13,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final AuthBloc _authBloc = AuthBloc(repo: AuthRepo());
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     User? user = _authBloc.repo.getCurrentUser();
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,

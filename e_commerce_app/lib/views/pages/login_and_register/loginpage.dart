@@ -1,13 +1,11 @@
 import 'package:e_commerce_app/auth/bloc/auth_bloc.dart';
-import 'package:e_commerce_app/views/pages/bottom_navigation_pages/homepage.dart';
-import 'package:e_commerce_app/views/pages/bottom_navigation_pages/mainscreen.dart';
+import 'package:e_commerce_app/views/pages/auth_pages/auth_page.dart';
 import 'package:e_commerce_app/views/shared/buttons/button_with_icon.dart';
 import 'package:e_commerce_app/views/shared/fonts/google_font.dart';
 import 'package:e_commerce_app/views/shared/textfield/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key, this.onPressed});
@@ -34,7 +32,7 @@ class LoginPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>  MainScreen(),
+                      builder: (context) => const AuthPage(),
                     ),
                   );
                 }
