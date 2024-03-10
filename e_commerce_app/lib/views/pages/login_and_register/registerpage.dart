@@ -151,6 +151,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       _confirmPasswordController,
                       _username),
                 ),
+                paddingLeft: 100,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
