@@ -75,6 +75,7 @@ class LoginPage extends StatelessWidget {
                     await EmailPasswordSignin.signInUser(
                         context, _emailController, _passwordController);
                   },
+                  paddingLeft: 100,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
