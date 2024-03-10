@@ -1,6 +1,6 @@
+import 'package:e_commerce_app/views/pages/login_and_register/loginpage.dart';
+import 'package:e_commerce_app/views/pages/login_and_register/registerpage.dart';
 import 'package:flutter/material.dart';
-import 'package:gdsc_captone_project/views/pages/login_and_register/loginpage.dart';
-import 'package:gdsc_captone_project/views/pages/login_and_register/registerpage.dart';
 
 class LoginOrRegisterPage extends StatefulWidget {
   const LoginOrRegisterPage({super.key});

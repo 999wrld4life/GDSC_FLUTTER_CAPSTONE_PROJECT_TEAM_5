@@ -1,5 +1,5 @@
+import 'package:e_commerce_app/views/shared/fonts/google_font.dart';
 import 'package:flutter/material.dart';
-import 'package:gdsc_captone_project/views/shared/fonts/google_font.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});

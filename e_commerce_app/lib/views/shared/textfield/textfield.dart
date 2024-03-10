@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
 class MyTextField extends StatefulWidget {
-  // ignore: prefer_typing_uninitialized_variables
   final controller;
   final bool isBool;
   final IconData icon;
   final String text;
 
   const MyTextField({
-    Key? key,
+    super.key,
     required this.isBool,
     required this.icon,
     required this.text,
     this.controller,
-  }) : super(key: key);
+  });
 
   @override
   // ignore: library_private_types_in_public_api

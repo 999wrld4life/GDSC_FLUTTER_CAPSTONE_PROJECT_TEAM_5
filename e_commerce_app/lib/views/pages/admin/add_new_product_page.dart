@@ -1,6 +1,5 @@
+import 'package:e_commerce_app/views/shared/fonts/google_font.dart';
 import 'package:flutter/material.dart';
-import 'package:gdsc_captone_project/services/email_password_auth/signout.dart';
-import 'package:gdsc_captone_project/views/shared/fonts/google_font.dart';
 
 class AdminPage extends StatelessWidget {
   const AdminPage({super.key});
@@ -11,7 +10,7 @@ class AdminPage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () async => await EmailPasswordSignout.signOut(context),
+            onPressed: () {},
             icon: const Icon(Icons.logout_outlined),
             color: Theme.of(context).colorScheme.inversePrimary,
           )

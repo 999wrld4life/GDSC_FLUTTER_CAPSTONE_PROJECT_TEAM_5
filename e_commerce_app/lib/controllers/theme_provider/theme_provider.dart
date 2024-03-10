@@ -1,6 +1,6 @@
+import 'package:e_commerce_app/themes/darkmode.dart';
+import 'package:e_commerce_app/themes/lightmode.dart';
 import 'package:flutter/material.dart';
-import 'package:gdsc_captone_project/themes/darkmode.dart';
-import 'package:gdsc_captone_project/themes/lightmode.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeData _themeData = lightMode;

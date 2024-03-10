@@ -1,6 +1,6 @@
+import 'package:e_commerce_app/controllers/bottom_navigation_provider/bottom_navigation_provider.dart';
+import 'package:e_commerce_app/views/components/bottom_navigation/bottom_navigation_item.dart';
 import 'package:flutter/material.dart';
-import 'package:gdsc_captone_project/controllers/bottom_navigation_provider/bottom_navigation_provider.dart';
-import 'package:gdsc_captone_project/views/components/bottom_navigation/bottom_navigation_item.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 

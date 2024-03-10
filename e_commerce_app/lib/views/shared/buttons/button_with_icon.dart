@@ -1,6 +1,6 @@
+import 'package:e_commerce_app/views/shared/fonts/google_font.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gdsc_captone_project/views/shared/fonts/google_font.dart';
 
 class ButtonWithIcon extends StatelessWidget {
   final IconData? icon;

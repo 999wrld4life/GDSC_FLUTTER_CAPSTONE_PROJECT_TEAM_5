@@ -1,8 +1,8 @@
+import 'package:e_commerce_app/views/pages/bottom_navigation_pages/homepage.dart';
+import 'package:e_commerce_app/views/pages/bottom_navigation_pages/mainscreen.dart';
+import 'package:e_commerce_app/views/pages/login_and_register/login_or_register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gdsc_captone_project/services/email_password_auth/signin.dart';
-import 'package:gdsc_captone_project/views/pages/bottom_navigation_pages/mainscreen.dart';
-import 'package:gdsc_captone_project/views/pages/login_and_register/login_or_register_page.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -21,11 +21,12 @@ class AuthPage extends StatelessWidget {
         } else if (snapshot.hasData) {
           // User is logged in, handle navigation based on user role
           User? user = snapshot.data;
-          if (user != null) {
-            EmailPasswordSignin.handleSignIn(context, user);
-          }
-          // Return an empty widget while handling navigation
-          return const SizedBox();
+          return  MainScreen();
+          // if (user != null) {
+          //   // EmailPasswordSignin.handleSignIn(context, user);
+          // }
+          // // Return an empty widget while handling navigation
+          // return const SizedBox();
         } else {
           // User is not logged in, show login or register page
           return const LoginOrRegisterPage();
