@@ -15,6 +15,8 @@ class RouteClass {
   static String loginOrRegisterPage = '/login-or-register-page';
   static String profilePage = '/profile-page';
   static String settingsPage = '/settings-page';
+  static String onBoardingPage = '/on-boarding-page';
+
 
   static String getMainRoute() => mainPage;
   static String getAuthRoute() => authPage;
@@ -23,6 +25,8 @@ class RouteClass {
   static String getLoginOrRegisterRoute() => loginOrRegisterPage;
   static String getProfileRoute() => profilePage;
   static String getSettingsRoute() => settingsPage;
+  static String getOnboradingRoute() => onBoardingPage;
+
 
   static List<GetPage> routes = [
     GetPage(
@@ -62,6 +66,10 @@ class RouteClass {
       page: () => const SettingsPage(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(seconds: 1),
+    ),
+    GetPage(
+      name: onBoardingPage,
+      page: () => OnBoardingPage(),
     ),
   ];
 }
