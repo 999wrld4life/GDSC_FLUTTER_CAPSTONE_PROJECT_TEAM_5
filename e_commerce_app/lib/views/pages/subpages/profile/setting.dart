@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gdsc_captone_project/views/shared/buttons/circular_back_button.dart';
+import 'package:gdsc_captone_project/views/shared/buttons/circular_more_verical.dart';
 import 'package:gdsc_captone_project/views/shared/fonts/google_font.dart';
 
 void main() {
@@ -14,28 +15,43 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        leading: const CircularBackArrow(),
-        title: Text('Settings',
-            style: textStyle(
-                20.sp,
-                Theme.of(context).colorScheme.inversePrimary,
-                FontWeight.bold,
-                1)),
-        centerTitle: true,
-      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 15.h),
-            Text('Account',
-                style: textStyle(
-                    16.sp,
-                    Theme.of(context).colorScheme.inversePrimary,
-                    FontWeight.bold,
-                    1)),
+            SizedBox(height: 50.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const CircularBackArrow(),
+                  Text(
+                    'Settings',
+                    style: textStyle(
+                        18,
+                        Theme.of(context).colorScheme.inversePrimary,
+                        FontWeight.bold,
+                        1.2),
+                  ),
+                  CircularMoreVert(
+                    onPressed: () {
+                      //show something
+                    },
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20.h),
+            Text(
+              'Account',
+              style: textStyle(
+                  14.sp,
+                  Theme.of(context).colorScheme.inversePrimary,
+                  FontWeight.bold,
+                  1),
+            ),
             SizedBox(height: 5.h),
             ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: 20.h),
@@ -49,7 +65,7 @@ class SettingsPage extends StatelessWidget {
                   Text(
                     'Natty Tem',
                     style: textStyle(
-                        16.sp,
+                        14.sp,
                         Theme.of(context).colorScheme.inversePrimary,
                         FontWeight.bold,
                         1),
@@ -59,7 +75,7 @@ class SettingsPage extends StatelessWidget {
                     style: textStyle(
                         12.sp,
                         Theme.of(context).colorScheme.inversePrimary,
-                        FontWeight.bold,
+                        FontWeight.normal,
                         1),
                   ),
                 ],
@@ -140,9 +156,9 @@ class ListTileRowWidget extends StatelessWidget {
                   Text(
                     trailingText!,
                     style: textStyle(
-                        14.sp,
+                        12.sp,
                         Theme.of(context).colorScheme.inversePrimary,
-                        FontWeight.bold,
+                        FontWeight.normal,
                         1),
                   ),
                   const Icon(Icons.arrow_forward_ios),
