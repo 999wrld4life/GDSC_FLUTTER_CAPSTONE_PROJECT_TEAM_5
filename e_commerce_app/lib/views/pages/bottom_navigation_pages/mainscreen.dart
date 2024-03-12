@@ -5,7 +5,7 @@ import 'package:gdsc_captone_project/services/email_password_auth/signout.dart';
 import 'package:gdsc_captone_project/views/components/bottom_navigation/bottom_navigation.dart';
 import 'package:gdsc_captone_project/views/pages/bottom_navigation_pages/cart.dart';
 import 'package:gdsc_captone_project/views/pages/bottom_navigation_pages/homepage.dart';
-import 'package:gdsc_captone_project/views/pages/bottom_navigation_pages/profile.dart';
+import 'package:gdsc_captone_project/views/pages/bottom_navigation_pages/profiles.dart';
 import 'package:gdsc_captone_project/views/pages/bottom_navigation_pages/search.dart';
 import 'package:provider/provider.dart';
 
@@ -13,11 +13,11 @@ import 'package:provider/provider.dart';
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
 
-  List<Widget> pages = const [
+  List<Widget> pages = [
     HomePage(),
-    SearchPage(),
-    CartPage(),
-    ProfilePage(),
+    const SearchPage(),
+    const CartPage(),
+    const ProfilePage(),
   ];
 
   @override
@@ -28,7 +28,6 @@ class MainScreen extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.background,
           body: pages[bottomNavigationProvider.pageIndex],
           appBar: AppBar(
-            title: const Text('Main Screen'),
             actions: [
               IconButton(
                 onPressed: () {
