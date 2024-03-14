@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  final Product product; // Assume Product is your data model class
+  final Product product; 
 
   ProductDetailsScreen({required this.product});
 
@@ -46,10 +46,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   style: TextStyle(fontSize: 16),
                 ),
                 SizedBox(height: 8),
-                // Add other product details based on your model
-                // ...
-
-                // Display the image
                 widget.product.imageUrl.isNotEmpty
                     ? Image.network(
                         widget.product.imageUrl,
@@ -58,8 +54,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         fit: BoxFit.cover,
                       )
                     : SizedBox(height: 16),
-
-                // Add more details or actions as needed
               ],
             ),
           );

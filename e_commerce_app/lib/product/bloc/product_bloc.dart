@@ -19,6 +19,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(ProductLoading());
       try {
        await _productRepo.addProduct(product: event.product, imageFile: event.image);
+       emit(ProductAdded());
       } catch (e) {
         emit(ProductError(errorMessage: e.toString()));
       }

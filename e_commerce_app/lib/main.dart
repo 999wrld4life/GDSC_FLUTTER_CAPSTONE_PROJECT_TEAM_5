@@ -5,6 +5,8 @@ import 'package:e_commerce_app/controllers/theme_provider/theme_provider.dart';
 import 'package:e_commerce_app/product/bloc/product_bloc.dart';
 import 'package:e_commerce_app/product/repo/product_repo.dart';
 import 'package:e_commerce_app/routes/routes.dart';
+import 'package:e_commerce_app/user/bloc/user_bloc.dart';
+import 'package:e_commerce_app/user/repo/user_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,6 +36,9 @@ void main() async {
         ),
         BlocProvider<ProductBloc>(
           create: (context) => ProductBloc(productRepo: ProductRepo()),
+        ),
+        BlocProvider<UserBloc>(
+          create: (context) => UserBloc(userRepo: UserRepo()),
         )
       ],
       child: const MyApp(),

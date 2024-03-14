@@ -23,7 +23,7 @@ class ProductRepo {
   }
 }
 
-Future<void> addProduct({ required Product product, required File imageFile}) async {
+Future<void> addProduct({required Product product, required File imageFile}) async {
   String? imageUrl = await uploadImage(imageFile);
 
   if (imageUrl != null) {

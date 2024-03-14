@@ -31,12 +31,12 @@ class ProductError extends ProductState {
 }
 
 class ProductAdded extends ProductState {
-  final Product product;
+  // final Product product;
 
-  ProductAdded({required this.product});
+  // ProductAdded({required this.product});
 
-  @override
-  List<Object> get props => [product];
+  // @override
+  // List<Object> get props => [product];
 }
 
 class ProductRemoved extends ProductState {

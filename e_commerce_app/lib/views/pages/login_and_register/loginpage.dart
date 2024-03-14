@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   );
                 } else if (state is AuthSuccessState) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const AuthPage(),

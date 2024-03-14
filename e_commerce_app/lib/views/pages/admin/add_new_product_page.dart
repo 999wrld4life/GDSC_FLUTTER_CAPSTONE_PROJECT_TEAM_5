@@ -1,5 +1,8 @@
 import 'package:e_commerce_app/auth/bloc/auth_bloc.dart';
+import 'package:e_commerce_app/product/bloc/product_bloc.dart';
+import 'package:e_commerce_app/product/screens/add_product.dart';
 import 'package:e_commerce_app/product/screens/add_product_screen.dart';
+import 'package:e_commerce_app/product/screens/edit_product.dart';
 import 'package:e_commerce_app/views/shared/buttons/button_with_icon.dart';
 import 'package:e_commerce_app/views/shared/fonts/google_font.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +35,18 @@ class AdminPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ButtonWithIcon(
-              text: 'Add Product',
+              text: 'Add Product .',
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AddProducts(),
+                    ));
+              },
+            ),
+            const SizedBox(height: 20),
+            ButtonWithIcon(
+              text: 'Add Product .p',
               onTap: () {
                 Navigator.push(
                     context,
@@ -40,7 +54,18 @@ class AdminPage extends StatelessWidget {
                       builder: (context) => const AddProductScreen(),
                     ));
               },
-            )
+            ),
+            const SizedBox(height: 20),
+            ButtonWithIcon(
+              text: 'Edit Product',
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const EditProducts(),
+                    ));
+              },
+            ),
           ],
         ),
       ),
