@@ -28,3 +28,12 @@ class AuthSuccessState extends AuthState {
   @override
   List<Object> get props => [user];
 }
+
+class ForgotPasswordState extends AuthState {
+  final String message;
+
+  const ForgotPasswordState({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

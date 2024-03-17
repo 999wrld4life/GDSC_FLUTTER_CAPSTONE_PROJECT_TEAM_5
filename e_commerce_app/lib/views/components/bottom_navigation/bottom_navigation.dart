@@ -25,7 +25,7 @@ class BottomNavigation extends StatelessWidget {
                   },
                   icon: Ionicons.home,
                   color: bottomNavigationProvider.pageIndex == 0
-                      ? Colors.purple
+                      ? const Color.fromRGBO(96, 85, 216, 1)
                       : Colors.grey,
                 ),
                 BottomNavigationItem(
@@ -34,7 +34,7 @@ class BottomNavigation extends StatelessWidget {
                   },
                   icon: Ionicons.search,
                   color: bottomNavigationProvider.pageIndex == 1
-                      ? Colors.purple
+                      ? const Color.fromRGBO(96, 85, 216, 1)
                       : Colors.grey,
                 ),
                 BottomNavigationItem(
@@ -43,7 +43,7 @@ class BottomNavigation extends StatelessWidget {
                   },
                   icon: Ionicons.lock_closed,
                   color: bottomNavigationProvider.pageIndex == 2
-                      ? Colors.purple
+                      ? const Color.fromRGBO(96, 85, 216, 1)
                       : Colors.grey,
                 ),
                 BottomNavigationItem(
@@ -52,7 +52,7 @@ class BottomNavigation extends StatelessWidget {
                   },
                   icon: Ionicons.person,
                   color: bottomNavigationProvider.pageIndex == 3
-                      ? Colors.purple
+                      ? const Color.fromRGBO(96, 85, 216, 1)
                       : Colors.grey,
                 ),
               ],

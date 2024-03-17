@@ -6,9 +6,9 @@ ThemeData lightMode = ThemeData(
       elevation: 0,
       titleTextStyle: TextStyle(color: Colors.black)),
   brightness: Brightness.light,
-  colorScheme: ColorScheme.light(
-    background: Colors.grey.shade200,
-    primary: Colors.grey.shade100,
+  colorScheme: const ColorScheme.light(
+    background: Colors.white,
+    primary: Colors.white,
     secondary: Colors.white,
     inversePrimary: Colors.black,
   ),

@@ -17,14 +17,13 @@ class AddCartEvent extends UserEvent{
 }
 
 class RemoveCartEvent extends UserEvent{
-  final Product cartItem;
   final String userId;
   final String docId;
 
-  RemoveCartEvent({required this.cartItem, required this.userId, required this.docId});
+  RemoveCartEvent({required this.userId, required this.docId});
   
   @override
-  List<Object?> get props => [cartItem, userId, docId];
+  List<Object?> get props => [userId, docId];
 }
 
 class UpdateCartEvent extends UserEvent{
@@ -36,4 +35,34 @@ class UpdateCartEvent extends UserEvent{
 
   @override
   List<Object?> get props => [cartItem, userId, quantity];
+}
+
+class LoadCartEvent extends UserEvent {
+  final String userId;
+
+  LoadCartEvent({required this.userId});
+
+  @override
+  List<Object?> get props => [userId];
+}
+
+
+class AddOrderEvent extends UserEvent{
+  final Product cartItem;
+  final String userId;
+
+  AddOrderEvent({required this.cartItem, required this.userId});
+
+  @override
+  List<Object?> get props => [cartItem, userId];
+}
+
+class BuyNowEvent extends UserEvent{
+  final Product cartItem;
+
+  BuyNowEvent({required this.cartItem});
+
+  @override
+  List<Object?> get props => [cartItem];
+
 }

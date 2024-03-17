@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/auth/bloc/auth_bloc.dart';
 import 'package:e_commerce_app/auth/repositories/auth_repo.dart';
 import 'package:e_commerce_app/views/pages/admin/add_new_product_page.dart';
+import 'package:e_commerce_app/views/pages/admin/admin_screen.dart';
 import 'package:e_commerce_app/views/pages/bottom_navigation_pages/mainscreen.dart';
 import 'package:e_commerce_app/views/pages/login_and_register/login_or_register_page.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _AuthPageState extends State<AuthPage> {
                   print('----------Debugging Inside admin--------------------------------');
                   print(userRole);
                   print('----------Debugging Inside admin--------------------------------');
-                  return const AdminPage();
+                  return const AdminScreen();
                 } else {
                   print('----------Debugging Outside both roll--------------------------------');
                   print(userRole);

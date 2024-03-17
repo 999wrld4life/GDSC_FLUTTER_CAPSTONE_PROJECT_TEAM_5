@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/product/model/product.dart';
 import 'package:e_commerce_app/user/model/cart_model.dart';
+import 'package:e_commerce_app/user/model/order_model.dart';
 
 class UserRepo {
   Future<void> addToCart(
@@ -23,8 +24,7 @@ class UserRepo {
         'imageUrl': product.imageUrl,
         'review': product.review,
         'size': product.size,
-        'status': 'active',
-        'quantity': '1',
+        'quantity': 1,
       });
       print('--------bugging inside addToCart -------------');
     } catch (e) {
@@ -32,13 +32,31 @@ class UserRepo {
     }
   }
 
+  Future<List<Map<String, dynamic>>> retrieveCart(String userId) async {
+  try {
+    QuerySnapshot cartSnapshot = await FirebaseFirestore.instance
+        .collection('user_data')
+        .doc(userId)
+        .collection('cart')
+        .get();
+
+    List<Map<String, dynamic>> cartList = [];
+    cartSnapshot.docs.toList();
+
+    return cartList;
+  } catch (e) {
+    print('Error occurred while retrieving cart: $e');
+    return [];
+  }
+}
+
   Future<void> removeFromCart(
-      {required Product product,
+      {
       required String userId,
       required String docId}) async {
     try {
       await FirebaseFirestore.instance
-          .collection('user')
+          .collection('user_data')
           .doc(userId)
           .collection('cart')
           .doc(docId)
@@ -50,7 +68,7 @@ class UserRepo {
 
   Future<void> updateCartItem({required Cart product,
       required String userId,
-      required String docId , required String quantity})async {
+      required String docId , required int quantity})async {
         try {
           await FirebaseFirestore.instance
            .collection('user_data')
@@ -96,7 +114,7 @@ class UserRepo {
     }
   }
 
-  Future<void> addToOrder(
+  Future<Product?> addToOrder(
       {required Product product,
       required String userId}) async {
     try {
@@ -120,8 +138,10 @@ class UserRepo {
         'status': 'active',
       });
       print('--------bugging inside addToOrder -------------');
+      return Product.fromMap(productMap);
     } catch (e) {
       print('Error occured while adding to order $e');
+      return null;
     }
   }
 }

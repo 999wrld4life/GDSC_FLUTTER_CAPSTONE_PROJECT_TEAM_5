@@ -11,6 +11,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  final TextEditingController _controller =  TextEditingController();
   String _searchQuery = '';
   int searchResultSize = 0;
   @override
@@ -18,13 +19,37 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
           child: Column(
             children: [
               TextField(
+                autofocus: true,
+                controller: _controller,
                 decoration: InputDecoration(
                   hintText: 'Search for products',
                   prefixIcon: const Icon(Icons.search),
+                  suffixIcon: _searchQuery.isEmpty
+                      ? IconButton(
+                          onPressed: () {},
+                          icon: const Padding(
+                            padding: EdgeInsets.only(right: 20),
+                            child: Icon(
+                              Icons.sort,
+                              size: 30,
+                            ),
+                          ),
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _searchQuery = '';
+                              _controller.clear();
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.cancel_outlined,
+                            size: 30,
+                          )),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20)),
                   focusedBorder: OutlineInputBorder(
@@ -43,7 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ? Row(
                       children: [
                         Text('Results for "$_searchQuery"'),
-                        Spacer(),
+                        const Spacer(),
                         Text('$searchResultSize Results Found'),
                       ],
                     )
@@ -155,7 +180,6 @@ class _SearchScreenState extends State<SearchScreen> {
                   },
                 ),
               ),
-              
             ],
           ),
         ),

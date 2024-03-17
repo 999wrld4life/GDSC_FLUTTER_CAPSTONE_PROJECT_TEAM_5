@@ -14,8 +14,7 @@ class Cart extends Equatable {
   final String imageUrl;
   final List<String> review;
   final List<String> size;
-  final String status;
-  final String quantity;
+  final int quantity;
 
   const Cart({
     required this.name,
@@ -28,7 +27,6 @@ class Cart extends Equatable {
     required this.imageUrl,
     this.review = const [],
     this.size = const [],
-    required this.status,
     required this.quantity,
   });
 
@@ -43,8 +41,7 @@ class Cart extends Equatable {
     String? imageUrl,
     List<String>? review,
     List<String>? size,
-    String? status,
-    String? quantity,
+    int? quantity,
   }) {
     return Cart(
       name: name ?? this.name,
@@ -57,7 +54,6 @@ class Cart extends Equatable {
       imageUrl: imageUrl ?? this.imageUrl,
       review: review ?? this.review,
       size: size ?? this.size,
-      status: status ?? this.status,
       quantity: quantity ?? this.quantity,
     );
   }
@@ -74,7 +70,6 @@ class Cart extends Equatable {
       'imageUrl': imageUrl,
       'review': review,
       'size': size,
-      'status': status,
       'quantity': quantity,
     };
   }
@@ -91,8 +86,7 @@ class Cart extends Equatable {
       imageUrl: map['imageUrl'] as String,
       review: List<String>.from((map['review'] ?? [])),
       size: List<String>.from((map['size'] ?? [])),
-      status: map['status'] as String,
-      quantity: map['quantity'] as String,
+      quantity: map['quantity'] as int,
     );
   }
 
@@ -116,7 +110,6 @@ class Cart extends Equatable {
       imageUrl,
       review,
       size,
-      status,
       quantity,
     ];
   }

@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:e_commerce_app/user/model/cart_model.dart';
 import 'package:equatable/equatable.dart';
 
 class Product extends Equatable {
@@ -81,6 +82,21 @@ class Product extends Equatable {
       imageUrl: map['imageUrl'] as String,
       review: List<String>.from((map['review'] ?? [])),
       size: List<String>.from((map['size'] ?? [])),
+    );
+  }
+
+  factory Product.fromCart(Cart cart) {
+    return Product(
+      name: cart.name,
+      description: cart.description,
+      brand: cart.brand,
+      toWhom: cart.toWhom,
+      price: cart.price,
+      star: cart.star,
+      color: cart.color,
+      imageUrl: cart.imageUrl,
+      review: cart.review,
+      size: cart.size,
     );
   }
 

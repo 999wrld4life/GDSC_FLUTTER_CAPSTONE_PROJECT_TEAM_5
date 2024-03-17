@@ -17,7 +17,7 @@ class Button extends StatelessWidget {
       width: buttonWidth,
       padding: EdgeInsets.fromLTRB(15.w, 8.h, 15.w, 8.h),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 39, 55, 176),
+        color: Color.fromRGBO(96, 85, 216, 1),
         borderRadius: BorderRadius.circular(25),
       ),
       child: Center(

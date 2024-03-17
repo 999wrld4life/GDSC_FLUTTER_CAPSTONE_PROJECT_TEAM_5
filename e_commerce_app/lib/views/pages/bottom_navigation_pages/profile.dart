@@ -89,15 +89,40 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.grey[300],
+                        color: const Color.fromRGBO(248, 247, 247, 1),
                         borderRadius: BorderRadius.circular(10)),
                     width: MediaQuery.of(context).size.width,
-                    height: 40,
-                    child: const Row(
+                    height: 50,
+                    child: const Padding(
+                      padding:  EdgeInsets.all(8.0),
+                      child:  Row(
+                        children: [
+                          Icon(Icons.person),
+                          SizedBox(width: 5),
+                          Text('Profile'),
+                          Spacer(),
+                          Icon(Icons.arrow_forward_ios),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: const Color.fromRGBO(248, 247, 247, 1),
+                      borderRadius: BorderRadius.circular(10)),
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  child: const Padding(
+                    padding:  EdgeInsets.all(8.0),
+                    child:  Row(
                       children: [
-                        Icon(Icons.person),
+                        Icon(Icons.settings),
                         SizedBox(width: 5),
-                        Text('Profile'),
+                        Text('Settings'),
                         Spacer(),
                         Icon(Icons.arrow_forward_ios),
                       ],
@@ -109,18 +134,21 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: const Color.fromRGBO(248, 247, 247, 1),
                       borderRadius: BorderRadius.circular(10)),
                   width: MediaQuery.of(context).size.width,
-                  height: 40,
-                  child: const Row(
-                    children: [
-                      Icon(Icons.settings),
-                      SizedBox(width: 5),
-                      Text('Settings'),
-                      Spacer(),
-                      Icon(Icons.arrow_forward_ios),
-                    ],
+                  height: 50,
+                  child:  const Padding(
+                    padding:  EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(Icons.email),
+                        SizedBox(width: 5),
+                        Text('Contact'),
+                        Spacer(),
+                        Icon(Icons.arrow_forward_ios),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -128,18 +156,21 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: const Color.fromRGBO(248, 247, 247, 1),
                       borderRadius: BorderRadius.circular(10)),
                   width: MediaQuery.of(context).size.width,
-                  height: 40,
-                  child: const Row(
-                    children: [
-                      Icon(Icons.email),
-                      SizedBox(width: 5),
-                      Text('Contact'),
-                      Spacer(),
-                      Icon(Icons.arrow_forward_ios),
-                    ],
+                  height: 50,
+                  child:  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(Icons.share),
+                        SizedBox(width: 5),
+                        Text('Share App'),
+                        Spacer(),
+                        Icon(Icons.arrow_forward_ios),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -147,37 +178,21 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: const Color.fromRGBO(248, 247, 247, 1),
                       borderRadius: BorderRadius.circular(10)),
                   width: MediaQuery.of(context).size.width,
-                  height: 40,
-                  child: const Row(
-                    children: [
-                      Icon(Icons.share),
-                      SizedBox(width: 5),
-                      Text('Share App'),
-                      Spacer(),
-                      Icon(Icons.arrow_forward_ios),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(10)),
-                  width: MediaQuery.of(context).size.width,
-                  height: 40,
-                  child: const Row(
-                    children: [
-                      Icon(Icons.help_outline_outlined),
-                      SizedBox(width: 5),
-                      Text('Help'),
-                      Spacer(),
-                      Icon(Icons.arrow_forward_ios),
-                    ],
+                  height: 50,
+                  child:  const Padding(
+                    padding:  EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(Icons.help_outline_outlined),
+                        SizedBox(width: 5),
+                        Text('Help'),
+                        Spacer(),
+                        Icon(Icons.arrow_forward_ios),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -193,18 +208,21 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.grey[300],
+                        color: Color.fromRGBO(248, 247, 247, 1),
                         borderRadius: BorderRadius.circular(10)),
                     width: MediaQuery.of(context).size.width,
-                    height: 40,
-                    child: const Row(
-                      children: [
-                        Icon(Icons.shopify),
-                        SizedBox(width: 5),
-                        Text('Orders'),
-                        Spacer(),
-                        Icon(Icons.arrow_forward_ios),
-                      ],
+                    height: 50,
+                    child:  const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Icon(Icons.shopify),
+                          SizedBox(width: 5),
+                          Text('Orders'),
+                          Spacer(),
+                          Icon(Icons.arrow_forward_ios),
+                        ],
+                      ),
                     ),
                   ),
                 ),

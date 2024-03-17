@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/auth/bloc/auth_bloc.dart';
 import 'package:e_commerce_app/views/pages/auth_pages/auth_page.dart';
+import 'package:e_commerce_app/views/pages/login_and_register/loginpage.dart';
 import 'package:e_commerce_app/views/shared/buttons/button_with_icon.dart';
 import 'package:e_commerce_app/views/shared/fonts/google_font.dart';
 import 'package:e_commerce_app/views/shared/textfield/textfield.dart';
@@ -42,7 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>  const AuthPage(),
+                      builder: (context) => const AuthPage(),
                     ),
                   );
                 }
@@ -171,18 +172,18 @@ class _RegisterPageState extends State<RegisterPage> {
                         icon: Icons.login,
                         text: 'Sign Up',
                         onTap: () {
-                          if(_passwordController.text == _confirmPasswordController.text) {
+                          if (_passwordController.text ==
+                              _confirmPasswordController.text) {
                             context.read<AuthBloc>().add(
-                                SignUpEvent(
-                                    email: _emailController.text,
-                                    password: _passwordController.text,
-                                    name: _username.text),
-                              );
-                          }else {
+                                  SignUpEvent(
+                                      email: _emailController.text,
+                                      password: _passwordController.text,
+                                      name: _username.text),
+                                );
+                          } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text(
-                                    'Passwords do not match!'),
+                                content: Text('Passwords do not match!'),
                               ),
                             );
                           }
@@ -200,7 +201,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                 1),
                           ),
                           TextButton(
-                            onPressed: widget.onPressed,
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginPage(),
+                                  ));
+                            },
                             child: Text(
                               'Sign in',
                               style: textStyle(
@@ -215,7 +222,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   );
                 }
-                
               },
             ),
           ),

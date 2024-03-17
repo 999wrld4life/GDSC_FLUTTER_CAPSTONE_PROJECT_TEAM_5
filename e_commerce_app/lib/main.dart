@@ -1,3 +1,4 @@
+import 'package:chapa_unofficial/chapa_unofficial.dart';
 import 'package:e_commerce_app/auth/bloc/auth_bloc.dart';
 import 'package:e_commerce_app/auth/repositories/auth_repo.dart';
 import 'package:e_commerce_app/controllers/bottom_navigation_provider/bottom_navigation_provider.dart';
@@ -22,6 +23,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Chapa.configure(privateKey: "CHASECK_TEST-S6Y7XQhsRMWfHvykP7vbSRdX9067HMPQ");
   runApp(
     MultiProvider(
       providers: [

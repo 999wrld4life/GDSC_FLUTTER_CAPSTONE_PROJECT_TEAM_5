@@ -43,6 +43,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoadingState());
       try {
         await repo.forgotPassword(email: event.email);
+        emit(const ForgotPasswordState(message: 'Forgot Password sent successfully'));
       } catch (e) {
         emit(AuthFailureState(errorMessage: e.toString()));
       }

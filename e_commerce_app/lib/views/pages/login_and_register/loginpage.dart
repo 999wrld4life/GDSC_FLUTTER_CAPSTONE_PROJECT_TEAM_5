@@ -1,5 +1,7 @@
 import 'package:e_commerce_app/auth/bloc/auth_bloc.dart';
 import 'package:e_commerce_app/views/pages/auth_pages/auth_page.dart';
+import 'package:e_commerce_app/views/pages/login_and_register/forget_page.dart';
+import 'package:e_commerce_app/views/pages/login_and_register/registerpage.dart';
 import 'package:e_commerce_app/views/shared/buttons/button_with_icon.dart';
 import 'package:e_commerce_app/views/shared/fonts/google_font.dart';
 import 'package:e_commerce_app/views/shared/textfield/textfield.dart';
@@ -104,6 +106,23 @@ class LoginPage extends StatelessWidget {
                               );
                         },
                       ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ForgetPage()));
+                        },
+                        child: Text(
+                          'Forgot Password',
+                          style: textStyle(
+                              14.sp, Colors.blueAccent, FontWeight.bold, 1),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -116,7 +135,9 @@ class LoginPage extends StatelessWidget {
                                 1),
                           ),
                           TextButton(
-                            onPressed: onPressed,
+                            onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage(),));
+                            },
                             child: Text(
                               'Sign up',
                               style: textStyle(
