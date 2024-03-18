@@ -34,6 +34,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    User? user = _authBloc.repo.getCurrentUser();
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) {
         if (state is CartAddedState) {
@@ -196,11 +197,11 @@ class _DetailsPageState extends State<DetailsPage> {
                         width: 250.w,
                         child: ElevatedButton(
                           onPressed: () {
-                            context.read<UserBloc>().add(BuyNowEvent(cartItem: widget.product));
+                            context.read<UserBloc>().add(BuyNowEvent(cartItem: widget.product,userId: user!.uid));
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => CheckOutScreen(),
+                                  builder: (context) => const CheckOutScreen(),
                                 ));
                           },
                           style: ElevatedButton.styleFrom(

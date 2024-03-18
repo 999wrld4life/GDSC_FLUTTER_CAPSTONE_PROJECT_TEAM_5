@@ -114,7 +114,7 @@ class UserRepo {
     }
   }
 
-  Future<Product?> addToOrder(
+  Future<void> addToOrder(
       {required Product product,
       required String userId}) async {
     try {
@@ -138,10 +138,10 @@ class UserRepo {
         'status': 'active',
       });
       print('--------bugging inside addToOrder -------------');
-      return Product.fromMap(productMap);
+      // return Product.fromMap(productMap);
     } catch (e) {
       print('Error occured while adding to order $e');
-      return null;
+      // return null;
     }
   }
 }

@@ -25,10 +25,16 @@ class AdminScreen extends StatefulWidget {
 
 class _AdminScreenState extends State<AdminScreen> {
   final AuthBloc _authBloc = AuthBloc(repo: AuthRepo());
-  String selectedPage = 'AllProducts';
+  String selectedPage = 'dashboard';
+
+  Future<int> getUserCount() async {
+    return await _authBloc.repo.getNumberOfUsers();
+  }
+
   @override
   Widget build(BuildContext context) {
     User? user = _authBloc.repo.getCurrentUser();
+
     return Scaffold(
       backgroundColor: Color.fromRGBO(248, 247, 247, 1),
       appBar: AppBar(
@@ -55,9 +61,9 @@ class _AdminScreenState extends State<AdminScreen> {
           ),
         ),
         centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
+        actions: const[
+           Padding(
+            padding:  EdgeInsets.only(right: 20),
             child: Icon(
               Icons.notifications,
               size: 30,
@@ -185,17 +191,32 @@ class _AdminScreenState extends State<AdminScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              '17+',
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              FutureBuilder<int>(
+                                future: getUserCount(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Text(
+                                      '${snapshot.data!}+ ',
+                                      style: const TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    );
+                                  } else {
+                                    return const Text(
+                                      "Loading...",
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    );
+                                  }
+                                },
                             ),
                             const SizedBox(
                               height: 20,
                             ),
-                            Text('Users')
+                            const Text('Users')
                           ],
                         ),
                       ),

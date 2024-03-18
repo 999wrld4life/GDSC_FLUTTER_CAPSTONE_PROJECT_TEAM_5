@@ -277,6 +277,7 @@ class _CartPageState extends State<CartPage> {
                 Center(
                   child: GestureDetector(
                       onTap: () {
+                        // context.read<UserBloc>().add(AddOrderEvent(cartItem: cartItem, userId: userId))
                         Navigator.push(
                             context,
                             MaterialPageRoute(

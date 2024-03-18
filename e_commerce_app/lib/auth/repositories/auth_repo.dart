@@ -23,6 +23,30 @@ class AuthRepo {
     return _auth.currentUser;
   }
 
+  // Future<int> getNumberOfAuthenticatedUsers() async {
+  //   try {
+  //     // Fetch the list of users from Firebase Authentication
+  //     // var userRecords = await _auth.listUsers();
+  //     // Return the number of users
+  //     // return userRecords.users.length;
+  //   } catch (e) {
+  //     // Handle errors
+  //     print('Error fetching user data: $e');
+  //     return 0;
+  //   }
+  // }
+
+  Future<int> getNumberOfUsers() async {
+    try {
+      QuerySnapshot querySnapshot =
+          await _cloud.collection('users').get();
+      return querySnapshot.size;
+    } catch (e) {
+      print('Error fetching document count: $e');
+      return 0;
+    }
+  }
+
 
   Future<String> getUserRole({required User user}) async{
   try {
