@@ -47,6 +47,20 @@ class AuthRepo {
     }
   }
 
+  Future<int> getNumberOfOrders() async {
+    try {
+      QuerySnapshot querySnapshot =
+          await _cloud.collectionGroup('order')
+          .get();
+      return querySnapshot.size;
+    } catch (e) {
+      print('Error fetching document count: $e');
+      return 0;
+    }
+  }
+
+
+
 
   Future<String> getUserRole({required User user}) async{
   try {

@@ -3,6 +3,7 @@ import 'package:chapa_unofficial/chapa_unofficial.dart';
 import 'package:e_commerce_app/auth/bloc/auth_bloc.dart';
 import 'package:e_commerce_app/auth/repositories/auth_repo.dart';
 import 'package:e_commerce_app/user/bloc/user_bloc.dart';
+import 'package:e_commerce_app/user/model/cart_model.dart';
 import 'package:e_commerce_app/user/screens/order_summary.dart';
 import 'package:e_commerce_app/views/shared/buttons/button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,8 +12,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CheckOutScreen extends StatefulWidget {
+  final List<Cart> orders;
   const CheckOutScreen({
-    Key? key,
+    Key? key, required this.orders,
   }) : super(key: key);
 
   @override
@@ -53,7 +55,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     User? user = _authBloc.repo.getCurrentUser();
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
-        final wnd = state;
         return Scaffold(
           body: SafeArea(
               child: Padding(
@@ -63,7 +64,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: const Icon(Icons.arrow_back),
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -84,13 +85,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   child: Column(
                     children: [
                       Container(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
+                        child: const Padding(
+                          padding:  EdgeInsets.only(
                               top: 20, left: 20, right: 20),
                           child: Row(
                             children: [
                               Icon(Icons.location_on_outlined),
-                              const SizedBox(
+                               SizedBox(
                                 width: 20,
                               ),
                               Column(
@@ -110,13 +111,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                       ),
                       Container(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
+                        child: const Padding(
+                          padding:  EdgeInsets.only(
                               top: 20, left: 20, right: 20),
                           child: Row(
                             children: [
                               Icon(Icons.access_time),
-                              const SizedBox(
+                               SizedBox(
                                 width: 20,
                               ),
                               Text('6:00 pm, Wednesday 20'),
@@ -137,14 +138,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         child: GestureDetector(
                             onTap: () async {
                               await pay();
-                              if (state is OrderAddedState) {
-                                context.read<UserBloc>().add(AddOrderEvent(
-                                    cartItem: state.order, userId: user!.uid));
-                              }
+                                context.read<UserBloc>().add(AddOrderFromEvent(products: widget.orders, price: finalTotal,  userId: user!.uid));
                             },
                             child: Button(
                               buttonWidth: 330.w,
-                              text: 'Check out',
+                              text: 'Pay now',
                             )),
                       )
                     ],

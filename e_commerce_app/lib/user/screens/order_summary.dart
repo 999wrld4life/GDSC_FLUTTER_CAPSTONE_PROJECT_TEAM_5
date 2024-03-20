@@ -58,7 +58,7 @@ class OrderSummary extends StatelessWidget {
                           1),
                     ),
                     Text(
-                      (itemCount-1).toString(),
+                      total.toString(),
                       style: textStyle(
                           14.sp,
                           Theme.of(context).colorScheme.inversePrimary,

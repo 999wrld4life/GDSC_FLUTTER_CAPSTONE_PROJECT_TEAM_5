@@ -67,3 +67,14 @@ class BuyNowEvent extends UserEvent{
   List<Object?> get props => [cartItem, userId];
 
 }
+
+ class AddOrderFromEvent extends UserEvent{
+  final List<Cart> products;
+  final double price;
+  final String userId;
+
+  AddOrderFromEvent({required this.products, required this.price, required this.userId});
+
+  @override
+  List<Object?> get props => [products, price, userId];
+ }

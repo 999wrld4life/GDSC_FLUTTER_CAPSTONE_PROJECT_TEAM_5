@@ -3,6 +3,7 @@ import 'package:e_commerce_app/auth/repositories/auth_repo.dart';
 import 'package:e_commerce_app/product/model/product.dart';
 import 'package:e_commerce_app/product/screens/checkout_screen.dart';
 import 'package:e_commerce_app/user/bloc/user_bloc.dart';
+import 'package:e_commerce_app/user/model/cart_model.dart';
 import 'package:e_commerce_app/user/repo/user_repo.dart';
 import 'package:e_commerce_app/views/pages/bottom_navigation_pages/mainscreen.dart';
 import 'package:e_commerce_app/views/shared/fonts/google_font.dart';
@@ -197,11 +198,12 @@ class _DetailsPageState extends State<DetailsPage> {
                         width: 250.w,
                         child: ElevatedButton(
                           onPressed: () {
+                            // context.read<UserBloc>().add(AddOrderFromEvent(products: [Cart.fromProduct(widget.product)], price: widget.product.price));
                             context.read<UserBloc>().add(BuyNowEvent(cartItem: widget.product,userId: user!.uid));
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const CheckOutScreen(),
+                                  builder: (context) => CheckOutScreen(orders: [Cart.fromProduct(widget.product)],),
                                 ));
                           },
                           style: ElevatedButton.styleFrom(

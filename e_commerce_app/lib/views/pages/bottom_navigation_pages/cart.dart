@@ -24,6 +24,7 @@ class _CartPageState extends State<CartPage> {
   final AuthBloc _authBloc = AuthBloc(repo: AuthRepo());
   int quantity = 1;
   double finalTotal = 0;
+  late List<Cart> _list = [];
 
   void updateTotal(double total) {
     finalTotal = total;
@@ -101,6 +102,7 @@ class _CartPageState extends State<CartPage> {
                   child: BlocBuilder<UserBloc, UserState>(
                     builder: (context, state) {
                       if (state is CartLoadedState) {
+                        _list = state.cart;
                         return ListView.builder(
                           itemCount: state.cart.length,
                           itemBuilder: (context, index) {
@@ -281,7 +283,7 @@ class _CartPageState extends State<CartPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => CheckOutScreen(),
+                              builder: (context) => CheckOutScreen(orders: _list,),
                             ));
                       },
                       child: Button(

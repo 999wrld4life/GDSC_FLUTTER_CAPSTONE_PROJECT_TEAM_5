@@ -2,11 +2,13 @@
 import 'dart:convert';
 
 import 'package:e_commerce_app/product/model/product.dart';
+import 'package:e_commerce_app/user/model/cart_model.dart';
 import 'package:equatable/equatable.dart';
 
 class MyOrders extends Equatable {
-  final List<Product> orders;
+  final List<Cart> orders;
   final double totalPrice;
+  
 
   MyOrders({
     required this.orders,
@@ -14,7 +16,7 @@ class MyOrders extends Equatable {
   });
 
   MyOrders copyWith({
-    List<Product>? orders,
+    List<Cart>? orders,
     double? totalPrice,
   }) {
     return MyOrders(
@@ -30,16 +32,46 @@ class MyOrders extends Equatable {
     };
   }
 
-  factory MyOrders.fromMap(Map<String, dynamic> map) {
+  factory MyOrders.fromEmpty(){
     return MyOrders(
-      orders: List<Product>.from((map['orders'] as List<int>).map<Product>((x) => Product.fromMap(x as Map<String,dynamic>),),),
-      totalPrice: map['totalPrice'] as double,
+      orders: [],
+      totalPrice: 0,
     );
   }
 
+  // factory MyOrders.fromMap(Map<String, Cart> map) {
+  //   return MyOrders(
+  //     orders: List<Cart>.from((map['products'] as List<Cart>).map<Cart>((x) => Cart.fromMap(x as Map<String,dynamic>),),),
+  //     totalPrice: map['totalPrice'] as double,
+  //   );
+  // }
+
+  factory MyOrders.fromMap(Map<String, dynamic> map) {
+  // if (map == null) return null; // Return null if map is null
+  
+  List<Cart> orders = [];
+  if (map['products'] is List<dynamic>) {
+    orders = (map['products'] as List<dynamic>).map((x) {
+      if (x is Map<String, dynamic>) {
+        return Cart.fromMap(x);
+      } else {
+        // Handle invalid data here, e.g., return a default Cart object
+        return Cart.fromEmpty(); // Example of handling invalid data
+      }
+    }).toList();
+  }
+
+  double totalPrice = map['totalPrice'] as double ?? 0.0; // Provide a default value if totalPrice is null
+  
+  return MyOrders(
+    orders: orders,
+    totalPrice: totalPrice,
+  );
+}
+
   String toJson() => json.encode(toMap());
 
-  factory MyOrders.fromJson(String source) => MyOrders.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory MyOrders.fromJson(String source) => MyOrders.fromMap(json.decode(source) as Map<String, Cart>);
 
   @override
   bool get stringify => true;

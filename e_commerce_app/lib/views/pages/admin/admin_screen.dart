@@ -31,6 +31,10 @@ class _AdminScreenState extends State<AdminScreen> {
     return await _authBloc.repo.getNumberOfUsers();
   }
 
+  Future<int> getOrderCount() async {
+    return await _authBloc.repo.getNumberOfOrders();
+  }
+
   @override
   Widget build(BuildContext context) {
     User? user = _authBloc.repo.getCurrentUser();
@@ -231,12 +235,27 @@ class _AdminScreenState extends State<AdminScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              '200+',
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.w600,
-                              ),
+                            FutureBuilder<int>(
+                                future: getOrderCount(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Text(
+                                      '${snapshot.data!}+ ',
+                                      style: const TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    );
+                                  } else {
+                                    return const Text(
+                                      "Loading...",
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    );
+                                  }
+                                },
                             ),
                             const SizedBox(
                               height: 20,

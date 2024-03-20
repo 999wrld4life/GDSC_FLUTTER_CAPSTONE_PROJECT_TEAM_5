@@ -1,6 +1,6 @@
 import 'package:e_commerce_app/auth/bloc/auth_bloc.dart';
 import 'package:e_commerce_app/auth/repositories/auth_repo.dart';
-import 'package:e_commerce_app/onboarding/screen/onboarding_screen.dart';
+import 'package:e_commerce_app/onboarding/onboarding_screen.dart';
 import 'package:e_commerce_app/views/pages/admin/add_new_product_page.dart';
 import 'package:e_commerce_app/views/pages/admin/admin_screen.dart';
 import 'package:e_commerce_app/views/pages/bottom_navigation_pages/mainscreen.dart';
@@ -33,6 +33,8 @@ class _AuthPageState extends State<AuthPage> {
           );
         } else if (snapshot.hasData) {
           final user = snapshot.data!;
+          print('################################################################');
+          print(user.email);
           return FutureBuilder<String>(
             future: _authBloc.repo.getUserRole(user: user),
             builder: (context, userRoleSnapshot) {

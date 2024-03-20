@@ -46,7 +46,7 @@ class CartLoadedState extends UserState{
 class OrderLoadingState extends UserState {}
 
 class OrderAddedState extends UserState {
-  final Product order;
+  final MyOrders order;
 
   OrderAddedState({required this.order});
 
@@ -81,11 +81,20 @@ class ProductLoadedState extends UserState{
 }
 
 class BuyNowState extends UserState{
-  final Product product;
+  final Cart product;
 
   BuyNowState({required this.product});
 
   @override
   List<Object?> get props => [product];
 
+}
+
+class OrderSuccessState extends UserState{
+  final String message;
+
+  OrderSuccessState({required this.message});
+
+  @override
+  List<Object?> get props => [message];
 }

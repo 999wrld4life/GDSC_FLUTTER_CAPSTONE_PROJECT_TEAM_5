@@ -208,7 +208,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Color.fromRGBO(248, 247, 247, 1),
+                        color: const Color.fromRGBO(248, 247, 247, 1),
                         borderRadius: BorderRadius.circular(10)),
                     width: MediaQuery.of(context).size.width,
                     height: 50,

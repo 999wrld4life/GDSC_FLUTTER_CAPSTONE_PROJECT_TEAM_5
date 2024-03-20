@@ -33,27 +33,25 @@ class UserRepo {
   }
 
   Future<List<Map<String, dynamic>>> retrieveCart(String userId) async {
-  try {
-    QuerySnapshot cartSnapshot = await FirebaseFirestore.instance
-        .collection('user_data')
-        .doc(userId)
-        .collection('cart')
-        .get();
+    try {
+      QuerySnapshot cartSnapshot = await FirebaseFirestore.instance
+          .collection('user_data')
+          .doc(userId)
+          .collection('cart')
+          .get();
 
-    List<Map<String, dynamic>> cartList = [];
-    cartSnapshot.docs.toList();
+      List<Map<String, dynamic>> cartList = [];
+      cartSnapshot.docs.toList();
 
-    return cartList;
-  } catch (e) {
-    print('Error occurred while retrieving cart: $e');
-    return [];
+      return cartList;
+    } catch (e) {
+      print('Error occurred while retrieving cart: $e');
+      return [];
+    }
   }
-}
 
   Future<void> removeFromCart(
-      {
-      required String userId,
-      required String docId}) async {
+      {required String userId, required String docId}) async {
     try {
       await FirebaseFirestore.instance
           .collection('user_data')
@@ -66,22 +64,24 @@ class UserRepo {
     }
   }
 
-  Future<void> updateCartItem({required Cart product,
+  Future<void> updateCartItem(
+      {required Cart product,
       required String userId,
-      required String docId , required int quantity})async {
-        try {
-          await FirebaseFirestore.instance
-           .collection('user_data')
-           .doc(userId)
-           .collection('cart')
-           .doc(docId)
-           .update({
-            'quantity': quantity,
-          });
-        } catch (e) {
-          print('Error occured while updating cart $e');
-        }
-      }
+      required String docId,
+      required int quantity}) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('user_data')
+          .doc(userId)
+          .collection('cart')
+          .doc(docId)
+          .update({
+        'quantity': quantity,
+      });
+    } catch (e) {
+      print('Error occured while updating cart $e');
+    }
+  }
 
   Future<void> addToFavorite(
       {required Product product, required String userId}) async {
@@ -115,8 +115,7 @@ class UserRepo {
   }
 
   Future<void> addToOrder(
-      {required Product product,
-      required String userId}) async {
+      {required Product product, required String userId}) async {
     try {
       CollectionReference cartProd = FirebaseFirestore.instance
           .collection('user_data')
@@ -144,4 +143,50 @@ class UserRepo {
       // return null;
     }
   }
+
+  Future<void> addOrder(
+      {required List<Cart> products, required double price, required String userId}) async {
+    try {
+      List<Map<String, dynamic>> productsData =
+          products.map((product) => product.toMap()).toList();
+      await FirebaseFirestore.instance.collection('user_data')
+      .doc(userId)
+      .collection('order')
+      .add(
+        {
+          'products': productsData,
+          'price': price,
+        },
+      );
+    } catch (e) {
+      print('Error adding MyOrders to Firestore: $e');
+      rethrow;
+    }
+  }
+
+  Future<List<MyOrders>> getOrders(String userId) async {
+  try {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('user_data')
+        .doc(userId)
+        .collection('order')
+        .get();
+
+    List<MyOrders> orders = querySnapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      // Here you can convert the retrieved data into your Order object.
+      // Assuming you have an Order class, you can create an instance of it like this:
+      return MyOrders(
+        orders: List<Cart>.from(data['products'].map((product) => Cart.fromMap(product))),
+        totalPrice: data['price'],
+        // Add any other fields you might need.
+      );
+    }).toList();
+
+    return orders;
+  } catch (e) {
+    print('Error getting orders from Firestore: $e');
+    rethrow;
+  }
+}
 }

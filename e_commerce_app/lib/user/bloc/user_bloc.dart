@@ -101,15 +101,24 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     on<BuyNowEvent>((event, emit) async{
       try {
-        await _userRepo.addToOrder(product: event.cartItem, userId: event.userId);
+        // await _userRepo.addToOrder(product: event.cartItem, userId: event.userId);
         final fhf = event.cartItem;
 
-        emit(BuyNowState(product: fhf));
+        emit(BuyNowState(product: Cart.fromProduct(fhf)));
       } catch (e) {
         emit(CartErrorState(message: 'Error adding to cart $e'));
       }
     });
 
+    on<AddOrderFromEvent>((event, emit) async{
+      try {
+        await _userRepo.addOrder(products: event.products, price: event.price, userId: event.userId);
+        // emit(OrderSuccessState(message: 'Success adding to order from'));
+        // emit(BuyNowState(product: Product.fromCart(event.products[0])));
+      } catch (e) {
+        emit(CartErrorState(message: 'Error adding to cart $e'));
+      }
+    });
 
   }
 }
