@@ -31,11 +31,12 @@ class AddProduct extends ProductEvent{
 
 class UpdateProduct extends ProductEvent{
   final Product product;
+  final String imageUrl;
 
-  UpdateProduct({required this.product});
+  UpdateProduct({required this.product, required this.imageUrl});
 
   @override
-  List<Object> get props => [product];
+  List<Object> get props => [product, imageUrl];
 }
 
 class DeleteProduct extends ProductEvent{

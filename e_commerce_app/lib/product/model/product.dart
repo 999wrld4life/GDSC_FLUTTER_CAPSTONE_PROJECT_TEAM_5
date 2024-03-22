@@ -15,6 +15,7 @@ class Product extends Equatable {
   final String imageUrl;
   final List<String> review;
   final List<String> size;
+  final String? id;
 
   Product({
     required this.name,
@@ -27,6 +28,7 @@ class Product extends Equatable {
     required this.imageUrl,
     this.review = const [],
     required this.size,
+    this.id,
   });
 
   Product copyWith({
@@ -40,6 +42,7 @@ class Product extends Equatable {
     String? imageUrl,
     List<String>? review,
     List<String>? size,
+    String? id,
   }) {
     return Product(
       name: name ?? this.name,
@@ -52,6 +55,7 @@ class Product extends Equatable {
       imageUrl: imageUrl ?? this.imageUrl,
       review: review ?? this.review,
       size: size ?? this.size,
+      id: id?? this.id,
     );
   }
 
@@ -67,10 +71,11 @@ class Product extends Equatable {
       'imageUrl': imageUrl,
       'review': review,
       'size': size,
+
     };
   }
 
-  factory Product.fromMap(Map<String, dynamic> map) {
+  factory Product.fromMap(Map<String, dynamic> map, {required String id}) {
     return Product(
       name: map['name'] as String,
       description: map['description'] as String,
@@ -82,6 +87,7 @@ class Product extends Equatable {
       imageUrl: map['imageUrl'] as String,
       review: List<String>.from((map['review'] ?? [])),
       size: List<String>.from((map['size'] ?? [])),
+      id: id,
     );
   }
 
@@ -102,7 +108,7 @@ class Product extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory Product.fromJson(String source) => Product.fromMap(json.decode(source) as Map<String, dynamic>);
+  // factory Product.fromJson(String source) => Product.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   bool get stringify => true;

@@ -41,7 +41,7 @@ class _CatagoryBuilderState extends State<CatagoryBuilder> {
           }
           final products = snapshot.data!.docs.map((doc) {
             Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-            return Product.fromMap(data);
+            return Product.fromMap(data, id: doc.id);
           }).toList();
           createFavList(products.length);
 

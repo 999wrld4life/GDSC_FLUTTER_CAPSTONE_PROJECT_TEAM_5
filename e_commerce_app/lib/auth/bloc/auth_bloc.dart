@@ -55,6 +55,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         MyUser myUser = MyUser(uid: aUser!.uid, name: aUser.displayName!, email: aUser.email!);
         
         await repo.uploadImage(user: myUser,image: event.image);
+        emit(UploadProfileSuccessfullState());
       } catch (e) {
         emit(AuthFailureState(errorMessage: e.toString()));
       }

@@ -54,7 +54,7 @@ Future<void> deleteProduct(String productId) async {
   }
 }
 
-Future<void> editProduct({required String productId, required Product newProduct}) async {
+Future<void> editProduct({required Product newProduct, required String imageUrl, required String productId}) async {
     try {
       CollectionReference products = FirebaseFirestore.instance.collection('products');
 
@@ -66,9 +66,10 @@ Future<void> editProduct({required String productId, required Product newProduct
         'price': newProduct.price,
         'star': newProduct.star,
         'color': newProduct.color,
-        'imageUrl': newProduct.imageUrl,
+        'imageUrl': imageUrl,
         'review': newProduct.review,
         'size': newProduct.size,
+
       });
     } catch (e) {
       print('Error editing product: $e');
@@ -82,7 +83,7 @@ Future<void> editProduct({required String productId, required Product newProduct
 
       List<Product> searchResults = querySnapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        return Product.fromMap(data);
+        return Product.fromMap(data,id: doc.id);
       }).toList();
 
       return searchResults;

@@ -25,15 +25,15 @@ class Favorite extends Equatable {
     };
   }
 
-  factory Favorite.fromMap(Map<String, dynamic> map) {
-    return Favorite(
-      favoriteProducts: List<Product>.from((map['favoriteProducts'] as List<int>).map<Product>((x) => Product.fromMap(x as Map<String,dynamic>),),),
-    );
-  }
+  // factory Favorite.fromMap(Map<String, dynamic> map) {
+  //   return Favorite(
+  //     favoriteProducts: List<Product>.from((map['favoriteProducts'] as List<int>).map<Product>((x) => Product.fromMap(x as Map<String,dynamic>),),),
+  //   );
+  // }
 
   String toJson() => json.encode(toMap());
 
-  factory Favorite.fromJson(String source) => Favorite.fromMap(json.decode(source) as Map<String, dynamic>);
+  // factory Favorite.fromJson(String source) => Favorite.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   bool get stringify => true;

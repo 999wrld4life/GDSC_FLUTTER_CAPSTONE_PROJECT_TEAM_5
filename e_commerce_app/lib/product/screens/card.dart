@@ -48,7 +48,7 @@ class MyCard extends StatelessWidget {
                   )
                 ],
               ),
-              // Image.asset('assets/images/318b065a77b0f2c3eb752665f2fff4b1.png')
+              Image.asset('assets/card.png')
             ],
           ),
         ),

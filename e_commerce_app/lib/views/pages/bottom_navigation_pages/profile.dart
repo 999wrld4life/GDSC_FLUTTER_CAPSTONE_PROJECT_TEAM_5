@@ -38,9 +38,40 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             IconButton(
               onPressed: () {
-                context.read<AuthBloc>().add(LogoutEvent());
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text('Are you sure you want to sign out ?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            context.read<AuthBloc>().add(LogoutEvent());
+                          },
+                          child: const Text('Yes',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 25,
+                          ),),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            // context.read<AuthBloc>().add(LogoutEvent());
+                          },
+                          child: const Text('No',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 25,
+                          ),),
+                        ),
+                      ],
+                    );
+                  },
+                );
+                // context.read<AuthBloc>().add(LogoutEvent());
               },
-              icon: const Icon(Icons.logout_outlined),
+              icon: const Icon(Icons.more_vert),
               color: Theme.of(context).colorScheme.inversePrimary,
             )
           ],
@@ -94,8 +125,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: MediaQuery.of(context).size.width,
                     height: 50,
                     child: const Padding(
-                      padding:  EdgeInsets.all(8.0),
-                      child:  Row(
+                      padding: EdgeInsets.all(8.0),
+                      child: Row(
                         children: [
                           Icon(Icons.person),
                           SizedBox(width: 5),
@@ -117,8 +148,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: MediaQuery.of(context).size.width,
                   height: 50,
                   child: const Padding(
-                    padding:  EdgeInsets.all(8.0),
-                    child:  Row(
+                    padding: EdgeInsets.all(8.0),
+                    child: Row(
                       children: [
                         Icon(Icons.settings),
                         SizedBox(width: 5),
@@ -138,8 +169,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       borderRadius: BorderRadius.circular(10)),
                   width: MediaQuery.of(context).size.width,
                   height: 50,
-                  child:  const Padding(
-                    padding:  EdgeInsets.all(8.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Row(
                       children: [
                         Icon(Icons.email),
@@ -160,7 +191,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       borderRadius: BorderRadius.circular(10)),
                   width: MediaQuery.of(context).size.width,
                   height: 50,
-                  child:  const Padding(
+                  child: const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Row(
                       children: [
@@ -182,8 +213,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       borderRadius: BorderRadius.circular(10)),
                   width: MediaQuery.of(context).size.width,
                   height: 50,
-                  child:  const Padding(
-                    padding:  EdgeInsets.all(8.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Row(
                       children: [
                         Icon(Icons.help_outline_outlined),
@@ -212,7 +243,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         borderRadius: BorderRadius.circular(10)),
                     width: MediaQuery.of(context).size.width,
                     height: 50,
-                    child:  const Padding(
+                    child: const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Row(
                         children: [

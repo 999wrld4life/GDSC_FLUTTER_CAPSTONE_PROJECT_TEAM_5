@@ -78,3 +78,16 @@ class BuyNowEvent extends UserEvent{
   @override
   List<Object?> get props => [products, price, userId];
  }
+
+ class LoadAllProductsEvent extends UserEvent {}
+
+ class UpdateProductevent extends UserEvent{
+  final Product product;
+  final String imageUrl;
+  final String productId;
+
+  UpdateProductevent({required this.product,required this.imageUrl,required this.productId});
+
+  @override
+  List<Object?> get props => [product, imageUrl, productId];
+ }

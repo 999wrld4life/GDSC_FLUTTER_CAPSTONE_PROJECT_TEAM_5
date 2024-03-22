@@ -4,6 +4,8 @@ import 'package:e_commerce_app/auth/repositories/auth_repo.dart';
 import 'package:e_commerce_app/product/model/product.dart';
 import 'package:e_commerce_app/product/screens/add_product.dart';
 import 'package:e_commerce_app/product/screens/add_product_screen.dart';
+import 'package:e_commerce_app/product/screens/edit_product.dart';
+import 'package:e_commerce_app/user/bloc/user_bloc.dart';
 import 'package:e_commerce_app/views/pages/admin/tabs.dart';
 import 'package:e_commerce_app/views/pages/tabs/active_tab.dart';
 import 'package:e_commerce_app/views/pages/tabs/cancel_tab.dart';
@@ -14,6 +16,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AdminScreen extends StatefulWidget {
@@ -33,6 +36,15 @@ class _AdminScreenState extends State<AdminScreen> {
 
   Future<int> getOrderCount() async {
     return await _authBloc.repo.getNumberOfOrders();
+  }
+
+  int isSelected = -1;
+  Product? selectedProduct;
+  void setSelected(int index, Product? product) {
+    setState(() {
+      isSelected = index;
+      selectedProduct = product;
+    });
   }
 
   @override
@@ -65,9 +77,9 @@ class _AdminScreenState extends State<AdminScreen> {
           ),
         ),
         centerTitle: true,
-        actions: const[
-           Padding(
-            padding:  EdgeInsets.only(right: 20),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 20),
             child: Icon(
               Icons.notifications,
               size: 30,
@@ -117,9 +129,10 @@ class _AdminScreenState extends State<AdminScreen> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.category_rounded),
-              title: Text("All Products"),
+              leading: const Icon(Icons.category_rounded),
+              title: const Text("All Products"),
               onTap: () {
+                context.read<UserBloc>().add(LoadAllProductsEvent());
                 setState(() {
                   selectedPage = 'AllProducts';
                 });
@@ -127,8 +140,8 @@ class _AdminScreenState extends State<AdminScreen> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.corporate_fare_outlined),
-              title: Text("Orders"),
+              leading: const Icon(Icons.corporate_fare_outlined),
+              title: const Text("Orders"),
               onTap: () {
                 setState(() {
                   selectedPage = 'Orders';
@@ -146,8 +159,8 @@ class _AdminScreenState extends State<AdminScreen> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.person),
-              title: Text("Profile"),
+              leading: const Icon(Icons.person),
+              title: const Text("Profile"),
               onTap: () {
                 setState(() {
                   selectedPage = 'Profile';
@@ -158,10 +171,37 @@ class _AdminScreenState extends State<AdminScreen> {
               height: MediaQuery.of(context).size.height * 0.4,
             ),
             ListTile(
-              leading: Icon(Icons.logout),
-              title: Text("Logout"),
-              onTap: () async {
-                await _authBloc.repo.signOut();
+              leading: const Icon(Icons.logout),
+              title: const Text("Logout"),
+              onTap: () {
+                showDialog(
+                  context: context, builder: (context) {
+                  return AlertDialog(
+                      title: const Text('Are you sure you want to sign out ?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            context.read<AuthBloc>().add(LogoutEvent());
+                          },
+                          child: const Text('Yes',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 25,
+                          ),),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('No',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 25,
+                          ),),
+                        ),
+                      ],
+                    );
+                },);
               },
             ),
           ],
@@ -195,27 +235,27 @@ class _AdminScreenState extends State<AdminScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                              FutureBuilder<int>(
-                                future: getUserCount(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    return Text(
-                                      '${snapshot.data!}+ ',
-                                      style: const TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    );
-                                  } else {
-                                    return const Text(
-                                      "Loading...",
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    );
-                                  }
-                                },
+                            FutureBuilder<int>(
+                              future: getUserCount(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Text(
+                                    '${snapshot.data!}+ ',
+                                    style: const TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  );
+                                } else {
+                                  return const Text(
+                                    "Loading...",
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
                             const SizedBox(
                               height: 20,
@@ -236,26 +276,26 @@ class _AdminScreenState extends State<AdminScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             FutureBuilder<int>(
-                                future: getOrderCount(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    return Text(
-                                      '${snapshot.data!}+ ',
-                                      style: const TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    );
-                                  } else {
-                                    return const Text(
-                                      "Loading...",
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    );
-                                  }
-                                },
+                              future: getOrderCount(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Text(
+                                    '${snapshot.data!}+ ',
+                                    style: const TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  );
+                                } else {
+                                  return const Text(
+                                    "Loading...",
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
                             const SizedBox(
                               height: 20,
@@ -276,7 +316,7 @@ class _AdminScreenState extends State<AdminScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '\$ 314,000+',
+                              '\$ 54,000+',
                               style: TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.w600,
@@ -301,7 +341,7 @@ class _AdminScreenState extends State<AdminScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '\$ 97,000+',
+                              '\$ 4,300+',
                               style: TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.w600,
@@ -318,7 +358,7 @@ class _AdminScreenState extends State<AdminScreen> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Material(
@@ -375,7 +415,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            '\$ 314,000',
+                                            '\$ 54,3290',
                                             style: TextStyle(
                                               color: Colors.blueAccent,
                                               fontWeight: FontWeight.bold,
@@ -436,7 +476,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            '\$ 97,020',
+                                            '\$ 4,360',
                                             style: TextStyle(
                                               color: Colors.blueAccent,
                                               fontWeight: FontWeight.bold,
@@ -552,7 +592,7 @@ class _AdminScreenState extends State<AdminScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           'Products',
                           style: TextStyle(
                             fontSize: 20,
@@ -564,10 +604,10 @@ class _AdminScreenState extends State<AdminScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => AddProducts(),
+                                    builder: (context) => const AddProducts(),
                                   ));
                             },
-                            child: Button(buttonWidth: 100, text: 'Add')),
+                            child: const Button(buttonWidth: 100, text: 'Add')),
                       ],
                     ),
                   ),
@@ -581,112 +621,175 @@ class _AdminScreenState extends State<AdminScreen> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             labelText: 'Search',
-                            prefixIcon: Icon(Icons.search),
+                            prefixIcon: const Icon(Icons.search),
                           ),
                         ),
                       ),
-                      IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
-                      IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
+                      IconButton(
+                        onPressed: () {
+                          if (selectedProduct != null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    EditProducts(product: selectedProduct!),
+                              ),
+                            );
+                            debugPrint('$selectedProduct');
+                            // selectedProduct = null;
+                          } else {
+                            debugPrint('Select product is null');
+                          }
+                        },
+                        icon: const Icon(Icons.edit),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text(
+                                    'Are you sure you want to delete this product ?'),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () async {
+                                        await FirebaseFirestore.instance
+                                            .collection('products')
+                                            .doc(selectedProduct!.id)
+                                            .delete();
+                                        context.read<UserBloc>().add(LoadAllProductsEvent());
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text(
+                                        'Yes',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 25,
+                                        ),
+                                      )),
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text(
+                                        'No',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 25,
+                                        ),
+                                      )),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        icon: const Icon(Icons.delete),
+                      ),
                     ],
                   ),
-                  Divider(),
+                  const Divider(),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.8,
-                    child: StreamBuilder(
-                      stream: FirebaseFirestore.instance
-                          .collection('products')
-                          .snapshots(),
-                      builder:
-                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        if (snapshot.hasError) {
-                          return Center(
-                            child: Text(snapshot.error.toString()),
-                          );
-                        }
-                        final products = snapshot.data!.docs.map((doc) {
-                          Map<String, dynamic> data =
-                              doc.data() as Map<String, dynamic>;
-                          return Product.fromMap(data);
-                        }).toList();
-                        return GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 8.0,
-                            mainAxisSpacing: 8.0,
-                          ),
-                          itemCount: products.length,
-                          itemBuilder: (context, index) {
-                            final product = products[index];
-                            return GestureDetector(
-                              onTap: () {},
-                              child: Material(
-                                elevation: 5,
-                                borderRadius: BorderRadius.circular(10),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Stack(
+                    child: BlocBuilder<UserBloc, UserState>(
+                      builder: (context, state) {
+                        if (state is AllProductsLoadedState) {
+                          return GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 8.0,
+                              mainAxisSpacing: 8.0,
+                            ),
+                            itemCount: state.products.length,
+                            itemBuilder: (context, index) {
+                              final product = state.products[index];
+                              return AnimatedContainer(
+                                // foregroundDecoration: ,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                                transform: isSelected == index
+                                    ? Matrix4.identity()
+                                    : Matrix4.diagonal3Values(0.9, 0.9, 1.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    
+                                  },
+                                  child: Material(
+                                    elevation: 5,
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
                                       children: [
-                                        Container(
-                                          height: 100,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                  product.imageUrl),
-                                              fit: BoxFit.cover,
+                                        Stack(
+                                          children: [
+                                            Container(
+                                              height: 100,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      product.imageUrl),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
                                             ),
-                                          ),
+                                            Positioned(
+                                              top: 8,
+                                              right: 8,
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  setSelected(index, product);
+                                                },
+                                                icon: isSelected == index
+                                                    ? const Icon(Icons.done,
+                                                    color: Colors.white,
+                                                    )
+                                                    : const Icon(
+                                                        Icons.circle_outlined,
+                                                        color: Colors.white,
+                                                      ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                                Icons.circle_outlined),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                product.name,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 4),
+                                              Text(
+                                                '\$${product.price.toString()}',
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.blue,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            product.name,
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          SizedBox(height: 4),
-                                          Text(
-                                            '\$${product.price.toString()}',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.blue,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        );
+                              );
+                            },
+                          );
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
                       },
                     ),
                   )

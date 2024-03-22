@@ -123,12 +123,15 @@ class _EditProductState extends State<AddProducts> {
                 content: Text('Product successfully added'),
               ),
             );
+            Navigator.pop(context);
           }
         },
         builder: (context, state) {
           if (state is ProductLoading) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Colors.black,
+              ),
             );
           } else {
             return Padding(

@@ -47,12 +47,21 @@ class _EditProfileState extends State<EditProfile> {
                   builder: (context) => const ProfilePage(),
                 ),
               );
+            }else if(state is UploadProfileSuccessfullState){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfilePage(),
+                ),
+              );
             }
           },
           builder: (context, state) {
             if (state is AuthLoadingState) {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.black,
+                ),
               );
             } else {
               return Padding(

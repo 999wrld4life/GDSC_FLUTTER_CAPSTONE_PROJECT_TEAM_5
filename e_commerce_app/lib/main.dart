@@ -40,7 +40,7 @@ void main() async {
           create: (context) => ProductBloc(productRepo: ProductRepo()),
         ),
         BlocProvider<UserBloc>(
-          create: (context) => UserBloc(userRepo: UserRepo()),
+          create: (context) => UserBloc(userRepo: UserRepo(),productRepo: ProductRepo()),
         )
       ],
       child: const MyApp(),

@@ -59,11 +59,11 @@ class AdminPage extends StatelessWidget {
             ButtonWithIcon(
               text: 'Edit Product',
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const EditProducts(),
-                    ));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => const EditProducts(),
+                //     ));
               },
             ),
           ],

@@ -37,3 +37,5 @@ class ForgotPasswordState extends AuthState {
   @override
   List<Object> get props => [message];
 }
+
+class UploadProfileSuccessfullState extends AuthState {}
